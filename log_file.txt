@@ -1,0 +1,481 @@
+2024-06-18 16:23:32,041 - INFO - Script started.
+2024-06-18 16:23:32,041 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:23:32,627 - INFO - Retrieving data with query: 
+SELECT
+    p.Name AS ProductName,
+    SUM(sod.LineTotal) AS TotalSales
+FROM
+    Sales.SalesOrderDetail sod
+JOIN
+    Sales.SalesOrderHeader soh ON sod.SalesOrderID = soh.SalesOrderID
+JOIN
+    Production.Product p ON sod.ProductID = p.ProductID
+WHERE
+    soh.OrderDate >= DATEADD(year, -10, GETDATE())
+GROUP BY
+    p.Name
+ORDER BY
+    TotalSales DESC;
+
+2024-06-18 16:23:32,943 - INFO - Data retrieved successfully.
+2024-06-18 16:23:32,943 - INFO - Last Year Sales Data:
+               ProductName  TotalSales
+0      Hitch Rack - 4-Bike     1200.00
+1  Sport-100 Helmet, Black     1189.66
+2   Sport-100 Helmet, Blue     1119.68
+3   All-Purpose Bike Stand     1113.00
+4    Sport-100 Helmet, Red      979.72
+2024-06-18 16:23:32,987 - INFO - Data exported to lastYearSales.csv
+2024-06-18 16:24:04,676 - ERROR - Error reading CSV file: [Errno 2] No such file or directory: 'C:\\Users\\Melikzade\\Desktop\\SQL Course Materials\\productReviews'
+2024-06-18 16:24:04,745 - INFO - Attempting to connect to the database for executing SQL.
+2024-06-18 16:24:05,490 - INFO - SQL query executed successfully.
+2024-06-18 16:24:05,490 - INFO - Attempting to connect to the database for executing SQL.
+2024-06-18 16:24:05,579 - INFO - SQL query executed successfully.
+2024-06-18 16:24:05,579 - INFO - CustomerFeedback table created successfully.
+2024-06-18 16:24:05,579 - INFO - Attempting to connect to the database for executing SQL.
+2024-06-18 16:24:05,695 - ERROR - Error executing query: (pyodbc.IntegrityError) ('23000', "[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot insert the value NULL into column 'FeedbackID', table 'AdventureWorks2022.dbo.CustomerFeedback'; column does not allow nulls. INSERT fails. (515) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)")
+[SQL: 
+INSERT INTO dbo.CustomerFeedback (CustomerID, FeedbackDate, Comments) 
+VALUES 
+    (1001, '2022-09-01', 'Great service!'),
+    (1002, '2022-09-05', 'Product quality is excellent'),
+    (1003, '2022-09-10', 'Could improve packaging'),
+    (1001, '2022-09-12', 'Fast delivery');
+]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-06-18 16:24:05,712 - INFO - Sample data inserted into CustomerFeedback table successfully.
+2024-06-18 16:24:05,712 - INFO - Attempting to connect to the database for executing SQL.
+2024-06-18 16:24:05,783 - INFO - SQL query executed successfully.
+2024-06-18 16:24:05,783 - INFO - CustomerFeedback table updated successfully.
+2024-06-18 16:24:05,783 - INFO - Attempting to connect to the database for executing SQL.
+2024-06-18 16:24:05,806 - INFO - SQL query executed successfully.
+2024-06-18 16:24:05,806 - INFO - Record deleted from CustomerFeedback table successfully.
+2024-06-18 16:24:05,806 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:24:05,818 - INFO - Retrieving data with query: 
+SELECT YEAR(OrderDate) AS Year, SUM(TotalDue) AS TotalSales
+FROM Sales.SalesOrderHeaderSalesReason
+GROUP BY YEAR(OrderDate)
+ORDER BY Year;
+
+2024-06-18 16:24:05,844 - ERROR - Error retrieving data: Execution failed on sql '
+SELECT YEAR(OrderDate) AS Year, SUM(TotalDue) AS TotalSales
+FROM Sales.SalesOrderHeaderSalesReason
+GROUP BY YEAR(OrderDate)
+ORDER BY Year;
+': ('42S22', "[42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'OrderDate'. (207) (SQLExecDirectW); [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'OrderDate'. (207); [42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'TotalDue'. (207)")
+2024-06-18 16:24:05,852 - INFO - Total Sales by Year Data:
+Empty DataFrame
+Columns: []
+Index: []
+2024-06-18 16:24:05,855 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:24:05,862 - INFO - Retrieving data with query: 
+SELECT YEAR(OrderDate) AS Year, MONTH(OrderDate) AS Month, SUM(TotalDue) AS TotalSales
+FROM Sales.SalesOrderHeader
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY Year, Month;
+
+2024-06-18 16:24:05,968 - INFO - Data retrieved successfully.
+2024-06-18 16:24:05,968 - INFO - Monthly Sales Trends:
+   Year  Month    TotalSales
+0  2011      5  5.670209e+05
+1  2011      6  5.070965e+05
+2  2011      7  2.292183e+06
+3  2011      8  2.800576e+06
+4  2011      9  5.547916e+05
+2024-06-18 16:24:06,498 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:24:06,522 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:24:09,500 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:24:09,572 - INFO - Retrieving data with query: 
+SELECT YEAR(OrderDate) AS Year, MONTH(OrderDate) AS Month, SUM(TotalDue) AS TotalSales
+FROM Sales.SalesOrderHeader
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY Year, Month;
+
+2024-06-18 16:24:09,900 - INFO - Data retrieved successfully.
+2024-06-18 16:24:09,900 - INFO - Total Sales by Month and Year Data:
+   Year  Month    TotalSales
+0  2011      5  5.670209e+05
+1  2011      6  5.070965e+05
+2  2011      7  2.292183e+06
+3  2011      8  2.800576e+06
+4  2011      9  5.547916e+05
+2024-06-18 16:24:16,914 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:24:16,919 - INFO - Retrieving data with query: 
+SELECT 
+    p.ProductID,
+    p.Name AS ProductName,
+    SUM(sod.LineTotal) AS TotalSales
+FROM 
+    Sales.SalesOrderDetail sod
+JOIN 
+    Production.Product p ON sod.ProductID = p.ProductID
+GROUP BY 
+    p.ProductID, p.Name
+ORDER BY 
+    TotalSales DESC;
+
+2024-06-18 16:24:19,814 - INFO - Data retrieved successfully.
+2024-06-18 16:24:19,814 - INFO - Sales Analysis - Best and Worst-Selling Products:
+   ProductID              ProductName    TotalSales
+0        782   Mountain-200 Black, 38  4.400593e+06
+1        783   Mountain-200 Black, 42  4.009495e+06
+2        779  Mountain-200 Silver, 38  3.693678e+06
+3        780  Mountain-200 Silver, 42  3.438479e+06
+4        781  Mountain-200 Silver, 46  3.434257e+06
+2024-06-18 16:24:25,516 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:24:25,588 - INFO - Retrieving data with query: 
+SELECT 
+    c.CustomerID,
+    a.City,
+    a.StateProvinceID,
+    COUNT(soh.SalesOrderID) AS OrderCount,
+    SUM(soh.TotalDue) AS TotalSpent
+FROM 
+    Sales.Customer c
+INNER JOIN 
+    Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
+INNER JOIN 
+    Person.Address a ON soh.BillToAddressID = a.AddressID
+GROUP BY 
+    c.CustomerID, a.City, a.StateProvinceID
+ORDER BY 
+    TotalSpent DESC;
+
+2024-06-18 16:25:24,230 - INFO - Data retrieved successfully.
+2024-06-18 16:25:24,230 - INFO - Customer Segmentation Data:
+   CustomerID         City  StateProvinceID  OrderCount   TotalSpent
+0       29818       Tooele               74          12  989184.0820
+1       29715      Memphis               72          12  961675.8596
+2       29722      Toronto               57          12  954021.9235
+3       30117  San Antonio               73          12  919801.8188
+4       29614     Richmond                7          12  901346.8560
+2024-06-18 16:25:32,630 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:25:32,647 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:25:37,722 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:25:37,890 - INFO - Retrieving data with query: 
+SELECT 
+    c.CustomerID,
+    a.City,
+    a.StateProvinceID,
+    COUNT(soh.SalesOrderID) AS OrderCount,
+    SUM(soh.TotalDue) AS TotalSpent
+FROM 
+    Sales.Customer c
+INNER JOIN 
+    Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
+INNER JOIN 
+    Person.Address a ON soh.BillToAddressID = a.AddressID
+GROUP BY 
+    c.CustomerID, a.City, a.StateProvinceID
+ORDER BY 
+    TotalSpent DESC;
+
+2024-06-18 16:28:05,591 - INFO - Data retrieved successfully.
+2024-06-18 16:28:05,591 - INFO - Customer Demographic Analysis Data:
+   CustomerID         City  StateProvinceID  OrderCount   TotalSpent
+0       29818       Tooele               74          12  989184.0820
+1       29715      Memphis               72          12  961675.8596
+2       29722      Toronto               57          12  954021.9235
+3       30117  San Antonio               73          12  919801.8188
+4       29614     Richmond                7          12  901346.8560
+2024-06-18 16:28:15,564 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:28:15,602 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:28:25,243 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:28:25,243 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:28:33,211 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:28:33,247 - INFO - Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2024-06-18 16:28:47,356 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:28:47,465 - INFO - Retrieving data with query: 
+SELECT 
+    c.CustomerID,
+    COUNT(DISTINCT soh.SalesOrderID) AS RepeatPurchaseCount,
+    SUM(soh.TotalDue) AS TotalSpent,
+    MAX(soh.OrderDate) AS LatestPurchaseDate
+FROM 
+    Sales.Customer c
+INNER JOIN 
+    Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
+GROUP BY 
+    c.CustomerID 
+ORDER BY 
+    RepeatPurchaseCount DESC;
+
+2024-06-18 16:29:56,597 - INFO - Data retrieved successfully.
+2024-06-18 16:29:56,597 - INFO - Customer Retention Analysis Data:
+   CustomerID  RepeatPurchaseCount  TotalSpent LatestPurchaseDate
+0       11176                   28   1458.6118         2014-06-29
+1       11091                   28   1314.2103         2014-06-10
+2       11331                   27   1468.8883         2014-06-26
+3       11276                   27   1092.0944         2014-06-24
+4       11262                   27   1245.1368         2014-06-24
+2024-06-18 16:30:11,040 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:11,100 - INFO - Retrieving data with query: 
+SELECT 
+    p.ProductID,
+    p.Name AS ProductName,
+    pi.Quantity AS InventoryQty,
+    COUNT(sod.SalesOrderDetailID) AS SalesCount
+FROM 
+    Production.Product p
+JOIN 
+    Production.ProductInventory pi ON p.ProductID = pi.ProductID
+LEFT JOIN 
+    Sales.SalesOrderDetail sod ON p.ProductID = sod.ProductID
+GROUP BY 
+    p.ProductID, p.Name, pi.Quantity
+HAVING 
+    (pi.Quantity = 0 AND COUNT(sod.SalesOrderDetailID) = 0) OR pi.Quantity > 100
+ORDER BY 
+    InventoryQty ASC, SalesCount DESC;
+
+2024-06-18 16:30:11,819 - INFO - Data retrieved successfully.
+2024-06-18 16:30:11,819 - INFO - Inventory Management Analysis Data:
+   ProductID              ProductName  InventoryQty  SalesCount
+0        780  Mountain-200 Silver, 42           102        1040
+1        763         Road-650 Red, 48           102         649
+2        750         Road-150 Red, 44           102         358
+3        786   Mountain-300 Black, 40           102         223
+4        774  Mountain-100 Silver, 48           102         204
+2024-06-18 16:30:11,875 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:11,898 - INFO - Retrieving data with query: 
+SELECT 
+    pv.BusinessEntityID AS VendorID,
+    v.Name AS VendorName,
+    AVG(pv.AverageLeadTime) AS AvgLeadTimeDays
+FROM 
+    Purchasing.ProductVendor pv
+JOIN 
+    Purchasing.Vendor v ON pv.BusinessEntityID = v.BusinessEntityID
+GROUP BY 
+    pv.BusinessEntityID, v.Name
+ORDER BY 
+    AvgLeadTimeDays ASC;
+
+2024-06-18 16:30:12,065 - INFO - Data retrieved successfully.
+2024-06-18 16:30:12,069 - INFO - Average Lead Time Analysis Data:
+   VendorID                VendorName  AvgLeadTimeDays
+0      1504          Chicago Rent-All               15
+1      1508  Compete Enterprises, Inc               15
+2      1522  First National Sport Co.               15
+3      1530     Comfort Road Bicycles               15
+4      1536       Cruger Bike Company               15
+2024-06-18 16:30:12,082 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:12,098 - INFO - Retrieving data with query: 
+SELECT 
+    pv.BusinessEntityID AS VendorID,
+    v.Name AS VendorName,
+    COUNT(po.PurchaseOrderID) AS PurchaseOrders,
+    AVG(po.TotalDue) AS AvgOrderCost,
+    AVG(DATEDIFF(day, po.OrderDate, po.ShipDate)) AS AvgDeliveryDay
+FROM 
+    Purchasing.Vendor v
+JOIN 
+    Purchasing.ProductVendor pv ON v.BusinessEntityID = pv.BusinessEntityID
+JOIN 
+    Purchasing.PurchaseOrderHeader po ON pv.ProductID = po.PurchaseOrderID
+GROUP BY 
+    pv.BusinessEntityID, v.Name
+ORDER BY 
+    PurchaseOrders DESC, AvgOrderCost ASC, AvgDeliveryDay ASC;
+
+2024-06-18 16:30:12,674 - INFO - Data retrieved successfully.
+2024-06-18 16:30:12,674 - INFO - Vendor Evaluation Data:
+   VendorID           VendorName  PurchaseOrders  AvgOrderCost  AvgDeliveryDay
+0      1656       Mountain Works              30    18943.8948               9
+1      1540   Bergeron Off-Roads              24    17836.0514               9
+2      1562     Norstan Bike Hut              23    21141.8929               9
+3      1536  Cruger Bike Company              23    21141.8929               9
+4      1616   Aurora Bike Center              19    11320.2539               9
+2024-06-18 16:30:12,674 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:12,687 - INFO - Retrieving data with query: 
+SELECT 
+    p.ProductID,
+    p.Name AS ProductName,
+    SUM(sod.LineTotal) AS TotalSales,
+    SUM(sod.UnitPrice * sod.OrderQty) AS TotalCost,
+    SUM(sod.LineTotal) - SUM(sod.UnitPrice * sod.OrderQty) AS Profit
+FROM 
+    Production.Product p
+JOIN 
+    Sales.SalesOrderDetail sod ON p.ProductID = sod.ProductID
+GROUP BY 
+    p.ProductID, p.Name
+ORDER BY 
+    Profit DESC;
+
+2024-06-18 16:30:13,063 - INFO - Data retrieved successfully.
+2024-06-18 16:30:13,063 - INFO - Product Profitability Analysis Data:
+   ProductID              ProductName  TotalSales   TotalCost  Profit
+0        879   All-Purpose Bike Stand  39591.0000  39591.0000     0.0
+1        878    Fender Set - Mountain  46619.5800  46619.5800     0.0
+2        866          Classic Vest, L  12839.7000  12839.7000     0.0
+3        861    Full-Finger Gloves, S  11410.2965  11410.2965     0.0
+4        910  HL Mountain Seat/Saddle  16392.0960  16392.0960     0.0
+2024-06-18 16:30:16,361 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:16,426 - INFO - Retrieving data with query: 
+SELECT 
+    sod.ProductID,
+    p.Name AS ProductName,
+    SUM(sod.UnitPrice * sod.OrderQty) AS TotalCost,
+    SUM(sod.LineTotal) AS TotalSales,
+    SUM(sod.LineTotal) - SUM(sod.UnitPrice * sod.OrderQty) AS Profit
+FROM 
+    Sales.SalesOrderDetail sod
+JOIN 
+    Production.Product p ON sod.ProductID = p.ProductID
+GROUP BY 
+    sod.ProductID, p.Name
+ORDER BY 
+    TotalCost DESC;
+
+2024-06-18 16:30:16,639 - INFO - Data retrieved successfully.
+2024-06-18 16:30:16,639 - INFO - Cost Structure Analysis Data:
+   ProductID              ProductName     TotalCost    TotalSales       Profit
+0        782   Mountain-200 Black, 38  4.406151e+06  4.400593e+06 -5558.465800
+1        783   Mountain-200 Black, 42  4.014068e+06  4.009495e+06 -4573.038059
+2        779  Mountain-200 Silver, 38  3.696486e+06  3.693678e+06 -2808.447328
+3        780  Mountain-200 Silver, 42  3.441293e+06  3.438479e+06 -2813.683877
+4        781  Mountain-200 Silver, 46  3.436091e+06  3.434257e+06 -1833.852672
+2024-06-18 16:30:16,662 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:16,663 - INFO - Retrieving data with query: 
+SELECT 
+    st.Name AS TerritoryName,
+    AVG(soh.TotalDue) AS AvgSales,
+    p.Name AS BestSellingProduct,
+    MAX(soh.TotalDue) AS MaxSale
+FROM 
+    Sales.SalesOrderHeader soh
+INNER JOIN 
+    Sales.SalesTerritory st ON soh.TerritoryID = st.TerritoryID
+INNER JOIN 
+    Sales.SalesOrderDetail sod ON soh.SalesOrderID = sod.SalesOrderID
+INNER JOIN 
+    Production.Product p ON sod.ProductID = p.ProductID
+GROUP BY 
+    st.Name, p.Name
+ORDER BY 
+    AvgSales DESC;
+
+2024-06-18 16:30:17,114 - INFO - Data retrieved successfully.
+2024-06-18 16:30:17,114 - INFO - Sales Performance Analysis Data:
+  TerritoryName     AvgSales             BestSellingProduct      MaxSale
+0     Southwest  125446.5357  LL Touring Frame - Yellow, 58  187487.8250
+1        France  124042.0336             HL Road Rear Wheel  166537.0808
+2        France  118421.1814  LL Touring Frame - Yellow, 58  140042.1209
+3        France  118421.1814    LL Touring Frame - Blue, 44  140042.1209
+4       Germany  115124.6277    LL Touring Frame - Blue, 44  115124.6277
+2024-06-18 16:30:27,560 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:27,681 - INFO - Retrieving data with query: 
+SELECT 
+    p.ProductID, 
+    p.Name AS ProductName, 
+    pi.Quantity AS InventoryQty, 
+    COUNT(sod.SalesOrderDetailID) AS SalesCount
+FROM 
+    Production.Product p
+INNER JOIN 
+    Production.ProductInventory pi ON p.ProductID = pi.ProductID
+INNER JOIN 
+    Sales.SalesOrderDetail sod ON p.ProductID = sod.ProductID
+GROUP BY 
+    p.ProductID, p.Name, pi.Quantity
+HAVING 
+    pi.Quantity < 10
+ORDER BY 
+    SalesCount DESC;
+
+2024-06-18 16:30:27,721 - INFO - Data retrieved successfully.
+2024-06-18 16:30:27,723 - INFO - Low Inventory Best-Selling Products Data:
+   ProductID                     ProductName  InventoryQty  SalesCount
+0        859           Half-Finger Gloves, M             0        1086
+1        876             Hitch Rack - 4-Bike             0         796
+2        882  Short-Sleeve Classic Jersey, M             0         407
+3        853               Women's Tights, M             0         114
+2024-06-18 16:30:27,756 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:30:27,758 - INFO - Retrieving data with query: 
+SELECT 
+    YEAR(OrderDate) AS Year,
+    MONTH(OrderDate) AS Month,
+    SUM(TotalDue) AS TotalSales
+FROM 
+    Sales.SalesOrderHeader
+GROUP BY 
+    YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY 
+    Year, Month;
+
+2024-06-18 16:30:27,866 - INFO - Data retrieved successfully.
+2024-06-18 16:30:27,869 - INFO - Historical Sales Data for Forecasting:
+   Year  Month    TotalSales
+0  2011      5  5.670209e+05
+1  2011      6  5.070965e+05
+2  2011      7  2.292183e+06
+3  2011      8  2.800576e+06
+4  2011      9  5.547916e+05
+2024-06-18 16:30:28,389 - INFO - Forecasted Sales for Next 12 Months:
+2014-07-01    5.667064e+06
+2014-08-01    2.027975e+06
+2014-09-01    4.387351e+06
+2014-10-01    2.857667e+06
+2014-11-01    3.849426e+06
+2014-12-01    3.206427e+06
+2015-01-01    3.623310e+06
+2015-02-01    3.353027e+06
+2015-03-01    3.528263e+06
+2015-04-01    3.414650e+06
+2015-05-01    3.488310e+06
+2015-06-01    3.440553e+06
+Freq: MS, Name: predicted_mean, dtype: float64
+2024-06-18 16:33:01,277 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:33:01,435 - INFO - Retrieving data with query: 
+SELECT 
+    soh.SalesPersonID,
+    p.FirstName,
+    p.LastName,
+    COUNT(soh.SalesOrderID) AS TotalOrders,
+    SUM(soh.TotalDue) AS TotalSales
+FROM 
+    Sales.SalesOrderHeader soh
+JOIN 
+    Person.Person p ON soh.SalesPersonID = p.BusinessEntityID
+GROUP BY 
+    soh.SalesPersonID, p.FirstName, p.LastName
+ORDER BY 
+    TotalSales DESC;
+
+2024-06-18 16:33:01,615 - INFO - Data retrieved successfully.
+2024-06-18 16:33:01,616 - INFO - Individual Sales Performance Analysis Data:
+   SalesPersonID FirstName  LastName  TotalOrders    TotalSales
+0            276     Linda  Mitchell          418  1.169502e+07
+1            277   Jillian    Carson          473  1.134239e+07
+2            275   Michael    Blythe          450  1.047537e+07
+3            289       Jae       Pak          348  9.585125e+06
+4            279      Tsvi    Reiter          429  8.086074e+06
+2024-06-18 16:33:01,639 - INFO - Attempting to connect to the database for retrieving data.
+2024-06-18 16:33:01,639 - INFO - Retrieving data with query: 
+SELECT 
+    edh.DepartmentID,
+    d.Name AS DepartmentName,
+    COUNT(e.BusinessEntityID) AS TotalEmployees,
+    AVG(e.VacationHours) AS AvgVacationHours,
+    AVG(e.SickLeaveHours) AS AvgSickLeaveHours
+FROM 
+    HumanResources.EmployeeDepartmentHistory edh
+JOIN 
+    HumanResources.Employee e ON edh.BusinessEntityID = e.BusinessEntityID
+JOIN 
+    HumanResources.Department d ON edh.DepartmentID = d.DepartmentID
+GROUP BY 
+    edh.DepartmentID, d.Name
+ORDER BY 
+    TotalEmployees DESC;
+
+2024-06-18 16:33:02,765 - INFO - Data retrieved successfully.
+2024-06-18 16:33:02,765 - INFO - Productivity Metrics Data:
+   DepartmentID        DepartmentName  TotalEmployees  AvgVacationHours  AvgSickLeaveHours
+0             7            Production             180                49                 44
+1             3                 Sales              18                27                 33
+2             5            Purchasing              13                53                 46
+3            10               Finance              11                54                 46
+4            11  Information Services              10                69                 54
+2024-06-18 16:33:02,780 - INFO - Script completed.
